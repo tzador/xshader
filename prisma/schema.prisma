@@ -18,6 +18,7 @@ model Shader {
   title String
 
   source String
+  size   Int
 
   @@map("shader")
 }

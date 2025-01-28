@@ -2,7 +2,7 @@ import type { PageServerLoad } from "./$types";
 import { prisma } from "$lib/prisma.server";
 
 export const load: PageServerLoad = async () => {
-  const shaders = prisma.shader.findMany({
+  const shaders = await prisma.shader.findMany({
     select: {
       id: true,
       title: true,
@@ -16,7 +16,7 @@ export const load: PageServerLoad = async () => {
       },
     },
     orderBy: {
-      title: "desc",
+      size: "asc",
     },
   });
   return {

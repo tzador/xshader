@@ -21,11 +21,32 @@ export default (source: string) => `
     <script>
       // Get WebGL context
       const canvas = document.getElementById("webgl-canvas");
-      const gl = canvas.getContext("webgl");
+      const gl = canvas.getContext("webgl", { preserveDrawingBuffer: true });
 
       if (!gl) {
         throw new Error("WebGL not supported.");
       }
+
+      // Create two framebuffers for ping-pong rendering
+      function createFramebuffer(gl, width, height) {
+        const framebuffer = gl.createFramebuffer();
+        gl.bindFramebuffer(gl.FRAMEBUFFER, framebuffer);
+
+        const texture = gl.createTexture();
+        gl.bindTexture(gl.TEXTURE_2D, texture);
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, width, height, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+
+        gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, texture, 0);
+
+        return { framebuffer, texture };
+      }
+
+      let buffers = [];
+      let currentBuffer = 0;
 
       // Canvas resize handler to maintain square aspect ratio
       function resizeCanvas() {
@@ -33,6 +54,16 @@ export default (source: string) => `
         canvas.width = size;
         canvas.height = size;
         gl.viewport(0, 0, canvas.width, canvas.height);
+
+        // Recreate framebuffers with new size
+        buffers.forEach(buffer => {
+          if (buffer.framebuffer) gl.deleteFramebuffer(buffer.framebuffer);
+          if (buffer.texture) gl.deleteTexture(buffer.texture);
+        });
+        buffers = [
+          createFramebuffer(gl, size, size),
+          createFramebuffer(gl, size, size)
+        ];
       }
       resizeCanvas();
       window.addEventListener("resize", resizeCanvas);
@@ -98,9 +129,10 @@ precision mediump float;
 #define XOR(a,b) (abs((a)-(b)))
 
 // Shader uniforms and varying variables
-uniform float t; // animation time in seconds
-uniform vec2 m;  // mouse position, normalized to [0, 1]
-varying vec2 p;  // fragment position, normalized to [0, 1]
+uniform float t;     // animation time in seconds
+uniform vec2 m;      // mouse position, normalized to [0, 1]
+uniform sampler2D b; // previous frame buffer
+varying vec2 p;      // fragment position, normalized to [0, 1]
 
 ${source}
 
@@ -158,6 +190,7 @@ void main() {
       // Get uniform locations for animation time and mouse position
       const timeUniformLocation = gl.getUniformLocation(program, "t");
       const mouseUniformLocation = gl.getUniformLocation(program, "m");
+      const bufferUniformLocation = gl.getUniformLocation(program, "b");
 
       // Mouse tracking setup
       let mouse = [0.5, 0.5];
@@ -175,11 +208,25 @@ void main() {
 
         gl.useProgram(program);
 
+        // Bind the previous frame's texture
+        gl.activeTexture(gl.TEXTURE0);
+        gl.bindTexture(gl.TEXTURE_2D, buffers[currentBuffer].texture);
+        gl.uniform1i(bufferUniformLocation, 0);
+
+        // Switch to the other framebuffer for rendering
+        currentBuffer = (currentBuffer + 1) % 2;
+        gl.bindFramebuffer(gl.FRAMEBUFFER, buffers[currentBuffer].framebuffer);
+
         // Update uniforms
         gl.uniform1f(timeUniformLocation, time);
         gl.uniform2fv(mouseUniformLocation, mouse);
 
         // Draw full-screen quad
+        gl.drawArrays(gl.TRIANGLES, 0, 6);
+
+        // Copy the result to the screen
+        gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+        gl.bindTexture(gl.TEXTURE_2D, buffers[currentBuffer].texture);
         gl.drawArrays(gl.TRIANGLES, 0, 6);
 
         // Schedule next frame

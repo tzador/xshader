@@ -5,26 +5,22 @@
     data,
   }: {
     data: {
-      shaders: Promise<
-        {
-          id: string;
-          title: string;
-          source: string;
-          user: {
-            name: string;
-            image: string | null;
-            login: string;
-          };
-        }[]
-      >;
+      shaders: {
+        id: string;
+        title: string;
+        source: string;
+        user: {
+          name: string;
+          image: string | null;
+          login: string;
+        };
+      }[];
     };
   } = $props();
 </script>
 
 <div class="flex flex-col gap-4 py-4">
-  {#await data.shaders then shaders}
-    {#each shaders as shader}
-      <Preview {shader} />
-    {/each}
-  {/await}
+  {#each data.shaders as shader}
+    <Preview {shader} />
+  {/each}
 </div>

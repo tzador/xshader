@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { byteLength, minify } from "$lib/helpers";
+  import { byteLengthString, minify } from "$lib/helpers";
   import template from "$lib/template.html";
 
   const {
@@ -38,6 +38,10 @@
       },
     };
   }
+
+  function deleteShader() {
+    fetch("/api/delete", { method: "DELETE", body: JSON.stringify({ path: shader.title }) });
+  }
 </script>
 
 <div class="flex flex-col items-center gap-2">
@@ -49,9 +53,12 @@
   <div class="flex w-[600px] justify-between gap-4">
     <a href={`/s/${shader.id}`}>
       <h3 class="text-lg font-medium text-blue-500">
-        {shader.title} ({byteLength(shader.source)} bytes)
+        {shader.title} ~ {byteLengthString(shader.source)}
       </h3>
     </a>
-    <button class="cursor-pointer rounded-md bg-red-700 px-2 py-1 text-white">Delete</button>
+    <button
+      onclick={() => deleteShader()}
+      class="cursor-pointer rounded-md bg-red-700 px-2 py-1 text-white">Delete</button
+    >
   </div>
 </div>
