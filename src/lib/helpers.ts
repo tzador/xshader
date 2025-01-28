@@ -6,7 +6,7 @@ export function byteLengthString(str: string) {
   const a = new TextEncoder().encode(str).length;
   str = minify(str);
   const b = new TextEncoder().encode(str).length;
-  return `${a} -> ${b} = ${(b / a).toFixed(2)}x`;
+  return `${a} original -> ${b} minified bytes`;
 }
 
 export function minify(str: string) {

@@ -38,10 +38,6 @@
       },
     };
   }
-
-  function deleteShader() {
-    fetch("/api/delete", { method: "DELETE", body: JSON.stringify({ path: shader.title }) });
-  }
 </script>
 
 <div class="flex flex-col items-center gap-2">
@@ -50,15 +46,9 @@
       <iframe {srcdoc} title={shader.title} class="h-full w-full"></iframe>
     {/if}
   </div>
-  <div class="flex w-[600px] justify-between gap-4">
-    <a href={`/s/${shader.id}`}>
-      <h3 class="text-lg font-medium text-blue-500">
-        {shader.title} ~ {byteLengthString(shader.source)}
-      </h3>
-    </a>
-    <button
-      onclick={() => deleteShader()}
-      class="cursor-pointer rounded-md bg-red-700 px-2 py-1 text-white">Delete</button
-    >
-  </div>
+  <a href={`/s/${shader.id}`}>
+    <h3 class="text-lg font-medium text-blue-500">
+      {shader.title} ~ {byteLengthString(shader.source)}
+    </h3>
+  </a>
 </div>

@@ -5,13 +5,17 @@
   "type": "module",
   "scripts": {
     "dev": "vite dev",
-    "build": "vite build",
+    "build": "prisma generate && vite build",
     "preview": "vite preview",
     "prepare": "svelte-kit sync || echo ''",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
     "format": "prettier --write .",
-    "lint": "prettier --check . && eslint ."
+    "lint": "prettier --check . && eslint .",
+    "prisma-db-push-local": "dotenv -e .env -- prisma db push",
+    "prisma-db-push-production": "dotenv -e .env.production -- prisma db push",
+    "populate-local": "dotenv -e .env -- scripts/populate.ts",
+    "populate-production": "dotenv -e .env.production -- scripts/populate.ts"
   },
   "dependencies": {
     "@eslint/compat": "^1.2.5",
@@ -26,6 +30,7 @@
     "@tailwindcss/typography": "^0.5.16",
     "@types/node": "^22.12.0",
     "better-auth": "^1.1.14",
+    "dotenv-cli": "^8.0.0",
     "eslint": "^9.18.0",
     "eslint-config-prettier": "^10.0.1",
     "eslint-plugin-svelte": "^2.46.1",
