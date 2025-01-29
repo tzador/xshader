@@ -5,18 +5,18 @@ export const load: PageServerLoad = async () => {
   const shaders = await prisma.shader.findMany({
     select: {
       id: true,
-      title: true,
+      name: true,
       source: true,
+      published: true,
       user: {
         select: {
-          name: true,
-          login: true,
+          username: true,
           image: true,
         },
       },
     },
     orderBy: {
-      size: "asc",
+      id: "desc",
     },
   });
   return {

@@ -1,39 +1,56 @@
 <script lang="ts">
   import { authClient, signIn, signOut } from "$lib/auth.client";
+  import { LogOut } from "lucide-svelte";
   import "../app.css";
+  import { goto } from "$app/navigation";
 
   const { children } = $props();
 
   const session = authClient.useSession();
   const user:
     | {
-        id: string;
-        email: string;
-        emailVerified: boolean;
-        name: string;
-        createdAt: Date;
-        updatedAt: Date;
         image?: string | null | undefined;
-        login: string;
+        username: string;
       }
     | undefined = $derived($session.data?.user) as any;
+
+  async function create() {
+    if (!user) {
+      await signIn("/create");
+    } else {
+      await goto("/create");
+    }
+  }
 </script>
 
 <header
-  class="fixed top-0 right-0 left-0 container mx-auto flex items-center justify-between border-b bg-white px-4 py-2"
+  class="fixed top-0 right-0 left-0 grid grid-cols-[1fr_auto_1fr] items-center gap-4 bg-stone-800 p-4"
 >
-  {#if user}
-    <a class="text-lg font-medium" href="/">XShader</a>
-    <div class="flex items-center gap-2">
-      <img src={user.image} alt={user.login} class="h-6 w-6 rounded-full" />
-      <span>{user.login}</span>
-      <button onclick={() => signOut()}>Sign Out</button>
-    </div>
-  {:else}
-    <button onclick={() => signIn()}>Sign In</button>
-  {/if}
+  <div class="flex items-center justify-start gap-4">
+    <a class="text-xl font-medium" href="/"><h1>xshader.org</h1></a>
+  </div>
+  <div class="flex items-center gap-4">
+    <a href="/">hot</a>
+    <a href="/">top</a>
+    <a href="/">latest</a>
+    <a href="/">random</a>
+    <button class="font-medium text-purple-500" onclick={() => create()}>create</button>
+    <a href="/">faq</a>
+    <a href="/">about</a>
+  </div>
+  <div class="flex justify-end">
+    {#if user}
+      <div class="flex items-center gap-2">
+        <a href="/@{user.username}" class="font-medium">@{user.username}</a>
+        <img src={user.image} alt={user.username} class="h-8 w-8 rounded-full" />
+        <button onclick={() => signOut()}><LogOut /></button>
+      </div>
+    {:else}
+      <button class="font-medium" onclick={() => signIn()}>Sign In</button>
+    {/if}
+  </div>
 </header>
 
-<main class="container mx-auto mt-11">
+<main class="container mx-auto mt-16">
   {@render children()}
 </main>

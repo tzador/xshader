@@ -8,17 +8,16 @@ datasource db {
 }
 
 model Shader {
-  id        String   @id @default(ulid())
+  id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  name      String
+  source    String
+  published Boolean @default(false)
+
   userId String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  title String
-
-  source String
-  size   Int
 
   @@map("shader")
 }
@@ -33,7 +32,7 @@ model User {
   updatedAt     DateTime
   sessions      Session[]
   accounts      Account[]
-  login         String    @unique
+  username      String    @unique
 
   shaders Shader[]
 

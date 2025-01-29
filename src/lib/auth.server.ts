@@ -14,14 +14,14 @@ export const auth = betterAuth({
       clientId: GITHUB_CLIENT_ID,
       clientSecret: GITHUB_CLIENT_SECRET,
       mapProfileToUser: (profile) => {
-        return { login: profile.login };
+        return { username: profile.login };
       },
     },
   },
 
   user: {
     additionalFields: {
-      login: { type: "string" },
+      username: { type: "string" },
     },
   },
 });

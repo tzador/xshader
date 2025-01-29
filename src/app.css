@@ -21,3 +21,15 @@
     border-color: var(--color-gray-200, currentColor);
   }
 }
+
+button {
+  @apply cursor-pointer;
+}
+
+body {
+  @apply bg-stone-900 text-stone-50;
+}
+
+input {
+  @apply border-none bg-stone-600 focus:ring-0;
+}
