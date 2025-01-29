@@ -4,22 +4,30 @@
 @plugin '@tailwindcss/forms';
 @plugin '@tailwindcss/container-queries';
 
-/*
-  The default border color has changed to `currentColor` in Tailwind CSS v4,
-  so we've added these compatibility styles to make sure everything still
-  looks the same as it did with Tailwind CSS v3.
+@font-face {
+  font-family: "Comic Mono";
+  src: url("/ComicMono.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
 
-  If we ever want to remove these styles, we need to add an explicit border
-  color utility to any element that depends on these defaults.
-*/
-@layer base {
-  *,
-  ::after,
-  ::before,
-  ::backdrop,
-  ::file-selector-button {
-    border-color: var(--color-gray-200, currentColor);
-  }
+@font-face {
+  font-family: "Comic Mono";
+  src: url("/ComicMono-Bold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  --font-sans: Comic Mono, monospace;
+  --font-serif: Comic Mono, monospace;
+  --font-mono: Comic Mono, monospace;
+}
+
+::placeholder {
+  @apply text-stone-600;
 }
 
 button {
@@ -31,5 +39,14 @@ body {
 }
 
 input {
-  @apply border-none bg-stone-600 focus:ring-0;
+  @apply border-none bg-stone-800/50 focus:bg-stone-800 focus:ring-0;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
