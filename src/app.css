@@ -27,7 +27,7 @@
 }
 
 ::placeholder {
-  @apply text-stone-600;
+  @apply text-stone-500;
 }
 
 button {
@@ -35,11 +35,11 @@ button {
 }
 
 body {
-  @apply bg-stone-900 text-stone-50;
+  @apply bg-stone-800 text-stone-50;
 }
 
 input {
-  @apply border-none bg-stone-800/50 focus:bg-stone-800 focus:ring-0;
+  @apply rounded-none border-none bg-stone-700/50 focus:bg-stone-700 focus:ring-0;
 }
 
 .hide-scrollbar::-webkit-scrollbar {

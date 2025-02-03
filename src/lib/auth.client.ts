@@ -6,11 +6,10 @@ export const authClient = createAuthClient({
 });
 
 export const signIn = async (next: string = "/me") => {
-  const data = await authClient.signIn.social({
+  await authClient.signIn.social({
     provider: "github",
     callbackURL: next,
   });
-  console.log(data);
 };
 
 export const signOut = async () => {

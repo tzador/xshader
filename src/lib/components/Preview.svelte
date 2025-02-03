@@ -7,7 +7,7 @@
   }: {
     shader: {
       id: string;
-      title: string;
+      name: string;
       source: string;
       user: {
         name: string;
@@ -43,12 +43,12 @@
 <div class="flex flex-col items-center gap-2">
   <div class="h-[600px] w-[600px] bg-black" use:visibility>
     {#if visible}
-      <iframe {srcdoc} title={shader.title} class="h-full w-full"></iframe>
+      <iframe {srcdoc} title={shader.name} class="h-full w-full"></iframe>
     {/if}
   </div>
   <a href={`/s/${shader.id}`}>
     <h3 class="text-lg font-medium text-blue-500">
-      {shader.title} ~ {byteLengthString(shader.source)}
+      {shader.name} ~ {byteLengthString(shader.source)}
     </h3>
   </a>
 </div>

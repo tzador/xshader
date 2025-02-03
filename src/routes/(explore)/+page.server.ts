@@ -7,7 +7,6 @@ export const load: PageServerLoad = async () => {
       id: true,
       name: true,
       source: true,
-      published: true,
       user: {
         select: {
           username: true,

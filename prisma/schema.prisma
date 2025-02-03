@@ -10,11 +10,9 @@ datasource db {
 model Shader {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 
-  name      String
-  source    String
-  published Boolean @default(false)
+  name   String
+  source String
 
   userId String
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
