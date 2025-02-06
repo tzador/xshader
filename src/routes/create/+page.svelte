@@ -3,6 +3,7 @@
   import Header from "$lib/components/Header.svelte";
   import defaultSource from "../../lib/default.glsl";
   import template from "$lib/template.html";
+  import library from "$lib/library.glsl";
 
   let name = $state("");
   let source = $state(defaultSource);
@@ -25,6 +26,14 @@
     />
     <div class="flex-1 overflow-hidden bg-stone-900">
       <AceEditor bind:source />
+    </div>
+    <div class="flex h-96 flex-col">
+      <div class="flex-none overflow-hidden bg-stone-800 p-2 text-lg text-stone-500">
+        List of available built-ins
+      </div>
+      <div class="flex-1 overflow-hidden bg-stone-700">
+        <AceEditor source={library} readonly />
+      </div>
     </div>
   </div>
 </div>
