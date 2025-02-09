@@ -1,14 +1,20 @@
 <script lang="ts">
   import AceEditor from "$lib/components/AceEditor.svelte";
   import Header from "$lib/components/Header.svelte";
-  import defaultSource from "../../lib/default.glsl";
-  import template from "$lib/template.html";
-  import library from "$lib/library.glsl";
+  import vertex_ from "$lib/vertex.glsl?raw";
+  import fragment_ from "$lib/fragment.glsl?raw";
+  import template_ from "$lib/template.html?raw";
+  import default_ from "../../lib/default.glsl?raw";
 
   let name = $state("");
-  let source = $state(defaultSource);
+  let source = $state(default_);
 
-  const srcdoc = $derived(template(source));
+  const srcdoc = $derived(
+    template_
+      .replace("/*** VERTEX_SHADER ***/", vertex_)
+      .replace("/*** FRAGMENT_SHADER ***/", fragment_)
+      .replace("/*** GLSL_SOURCE ***/", source),
+  );
 </script>
 
 <Header>
@@ -32,7 +38,7 @@
         List of available built-ins
       </div>
       <div class="flex-1 overflow-hidden bg-stone-700">
-        <AceEditor source={library} readonly />
+        <AceEditor source={fragment_} readonly />
       </div>
     </div>
   </div>

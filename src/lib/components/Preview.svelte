@@ -1,6 +1,6 @@
 <script lang="ts">
   import { byteLengthString, minify } from "$lib/helpers";
-  import template from "$lib/template.html";
+  import template from "$lib/srcdoc.html?raw";
 
   const {
     shader,
@@ -17,7 +17,7 @@
     };
   } = $props();
 
-  const srcdoc = template(minify(shader.source));
+  const srcdoc = $derived(template.replace("/*** GLSL_SOURCE ***/", shader.source));
 
   let visible = $state(false);
 

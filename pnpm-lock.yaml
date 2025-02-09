@@ -101,6 +101,9 @@ importers:
       vite-node:
         specifier: ^3.0.4
         version: 3.0.4(@types/node@22.13.0)(jiti@2.4.2)(lightningcss@1.29.1)
+      vite-raw-plugin:
+        specifier: ^1.0.2
+        version: 1.0.2
 
 packages:
 
@@ -1727,6 +1730,9 @@ packages:
     engines: {node: ^18.0.0 || ^20.0.0 || >=22.0.0}
     hasBin: true
 
+  vite-raw-plugin@1.0.2:
+    resolution: {integrity: sha512-gdp/OFVXBiVq1UwPujVb7+4mmgYHTGrzslMbQvxmgzTN4/HC+3j4GNrumsIKSWfA/y3hktII7XqY38muRaGjhw==}
+
   vite@6.0.11:
     resolution: {integrity: sha512-4VL9mQPKoHy4+FE0NnRE/kbY51TOfaknxAjt3fJbGJxhIpBZiqVzlZDEesWWsuREXHwNdAoOFZ9MkPEVXczHwg==}
     engines: {node: ^18.0.0 || ^20.0.0 || >=22.0.0}
@@ -3319,6 +3325,8 @@ snapshots:
       - terser
       - tsx
       - yaml
+
+  vite-raw-plugin@1.0.2: {}
 
   vite@6.0.11(@types/node@22.13.0)(jiti@2.4.2)(lightningcss@1.29.1):
     dependencies:

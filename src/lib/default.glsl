@@ -1,4 +1,3 @@
-export default `\
 vec4 f() {
   vec2 uv = p * 20.0;
   vec2 id = floor(uv);
@@ -12,4 +11,3 @@ vec4 f() {
   vec3 color = vec3(cell, cell * (sin(id.x * 0.2 + t) * 0.5 + 0.5), cell * (cos(id.y * 0.2 + t) * 0.5 + 0.5));
   return vec4(color, 1.0);
 }
-`;

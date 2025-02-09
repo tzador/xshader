@@ -9,6 +9,7 @@ export function byteLengthString(str: string) {
   return `${a} original -> ${b} minified bytes`;
 }
 
+// TODO: remove this
 export function minify(str: string) {
   str = str.replace(/\/\/.*$/gm, "");
   str = str.replace(/\/[*][^*]+[*]\//gm, "");
