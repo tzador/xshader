@@ -50,7 +50,7 @@
       <Player source={shader.source} />
     {/if}
   </div>
-  <h3 class="py-4 text-4xl font-medium text-stone-50">
+  <h3 class="py-4 text-2xl font-medium text-stone-50">
     {shader.name}
   </h3>
   <p class="text-sm text-stone-50">
