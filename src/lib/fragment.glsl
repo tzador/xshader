@@ -1,58 +1,21 @@
-precision mediump float;
+#version 300 es
+precision highp float;
 
-// Basic Trigonometric Functions and Constants
-#define F float
-#define P 3.14159265359  // PI
-#define Q (2.0*P)        // 2*PI
-#define S sin
-#define C cos
-#define T tan
-#define A abs
+in vec2 FC;
+out vec4 fragColor;
 
-// New Mathematical Functions
-#define E 2.71828182846
-#define L length
-#define D dot
-#define N normalize
-#define M mix
-#define R fract
-#define F2 vec2
-#define F3 vec3
-#define F4 vec4
-
-// Common Operations
-#define ST smoothstep
-#define CL clamp
-#define MN min
-#define MX max
-#define PW pow
-#define MD mod
-
-// Common Constants
-#define H 0.5
-#define O 1.0
-#define Z 0.0
-
-// Common Combinations
-#define RT(x) (sqrt(x))
-#define RN(x) (1.0/x)
-#define EX(x) (exp(x))
-#define LN(x) (log(x))
-#define SQ(x) ((x)*(x))
-
-// Useful Vector Operations
-#define ROT(a) mat2(C(a),S(a),-S(a),C(a))
-#define CELL(p) (fract(p)-0.5)
-#define XOR(a,b) (abs((a)-(b)))
-
-// Shader uniforms and varying variables
+uniform float r;     // resolution
+uniform vec2 m;      // mouse position
 uniform float t;     // animation time in seconds
-uniform vec2 m;      // mouse position, normalized to [0, 1]
+uniform float f;     // frame
 uniform sampler2D b; // previous frame buffer
-varying vec2 p;      // fragment position, normalized to [0, 1]
+
+#define hsv(h,s,v) vec3(v*mix(vec3(1.),clamp(abs(fract(h+vec3(0.,2./3.,1./3.))*6.-3.)-1.,0.,1.),s))
+
+void main() {
+  vec4 o = vec4(0.f, 0.f, 0.f, 1.f);
 
 /*** GLSL_SOURCE ***/
 
-void main() {
-  gl_FragColor = f();
+  fragColor = o;
 }

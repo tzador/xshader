@@ -109,17 +109,18 @@
       gl.enableVertexAttribArray(positionLocation);
       gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
 
-      const timeUniformLocation = gl.getUniformLocation(program, "t");
+      const resolutionUniformLocation = gl.getUniformLocation(program, "r");
       const mouseUniformLocation = gl.getUniformLocation(program, "m");
+      const timeUniformLocation = gl.getUniformLocation(program, "t");
+      const frameUniformLocation = gl.getUniformLocation(program, "f");
       const bufferUniformLocation = gl.getUniformLocation(program, "b");
 
-      let mouse = [0.5, 0.5];
+      let frame = 0;
+
+      let mouse = [0, 0];
       canvas.addEventListener("mousemove", (event) => {
         const rect = canvas.getBoundingClientRect();
-        mouse = [
-          (event.clientX - rect.left) / canvas.width,
-          1.0 - (event.clientY - rect.top) / canvas.height,
-        ];
+        mouse = [event.clientX - rect.left, 1.0 - (event.clientY - rect.top)];
       });
 
       function render(time) {
@@ -131,11 +132,12 @@
         gl.bindTexture(gl.TEXTURE_2D, buffers[currentBuffer].texture);
         gl.uniform1i(bufferUniformLocation, 0);
 
+        gl.uniform2fv(resolutionUniformLocation, [canvas.width, canvas.height]);
+        gl.uniform2fv(mouseUniformLocation, mouse);
+        gl.uniform1f(timeUniformLocation, time);
+        gl.uniform1f(frameUniformLocation, frame);
         currentBuffer = (currentBuffer + 1) % 2;
         gl.bindFramebuffer(gl.FRAMEBUFFER, buffers[currentBuffer].framebuffer);
-
-        gl.uniform1f(timeUniformLocation, time);
-        gl.uniform2fv(mouseUniformLocation, mouse);
 
         gl.drawArrays(gl.TRIANGLES, 0, 6);
 
@@ -143,6 +145,7 @@
         gl.bindTexture(gl.TEXTURE_2D, buffers[currentBuffer].texture);
         gl.drawArrays(gl.TRIANGLES, 0, 6);
 
+        frame++;
         requestAnimationFrame(render);
       }
 

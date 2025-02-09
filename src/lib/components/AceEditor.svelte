@@ -23,8 +23,23 @@
       minLines: 11,
       readOnly: readonly,
       tabSize: 2,
+      useSoftTabs: false,
     });
     editor.setShowFoldWidgets(false);
+
+    editor.commands.bindKey("Tab", () => {
+      editor.insert("  ");
+    });
+
+    // Add multi-select key bindings
+    editor.commands.addCommand({
+      name: "multiSelect",
+      bindKey: { win: "Ctrl-D", mac: "Command-D" },
+      exec: function () {
+        editor.selectMore(1);
+      },
+      readOnly: true,
+    });
 
     editor.container.style.backgroundColor = colors.stone[900];
     let timeout: NodeJS.Timeout;

@@ -1,7 +1,10 @@
-attribute vec4 a_position;
-varying vec2 p;
+#version 300 es
+precision highp float;
+
+in vec4 a_position;
+out vec2 FC;
 
 void main() {
-  gl_Position = a_position;      // Set vertex position
-  p = a_position.xy * 0.5 + 0.5; // Transform position to [0,1] range for fragment shader
+  gl_Position = a_position;
+  FC = a_position.xy;
 }
