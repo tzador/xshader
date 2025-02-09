@@ -1,25 +1,28 @@
-import type { RequestHandler } from "./$types";
 import { auth } from "$lib/auth.server";
-import { error, redirect } from "@sveltejs/kit";
 import { prisma } from "$lib/prisma.server";
+import { error } from "@sveltejs/kit";
+import type { RequestHandler } from "./$types";
 
-export const GET: RequestHandler = async ({ request }) => {
-  const session = await auth.api.getSession({
-    headers: request.headers,
-  });
+export const POST: RequestHandler = async ({ request }) => {
+  const session = await auth.api.getSession({ headers: request.headers });
   if (!session) {
     throw error(401, "Unauthorized");
+  }
+
+  const body = await request.json();
+  const { name, source } = body;
+  if (!name || !source) {
+    throw error(400, "Invalid request");
   }
 
   // TODO: throttle creation of shaders per user
   const shader = await prisma.shader.create({
     data: {
-      name: "",
+      name,
       userId: session.user.id,
-      source: "",
-      published: false,
+      source,
     },
   });
 
-  throw redirect(302, "/" + shader.id);
+  return Response.json({ id: shader.id });
 };

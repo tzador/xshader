@@ -29,17 +29,17 @@
   {:else}
     <div class="grid grid-cols-[1fr_auto_1fr] gap-8">
       <div class="flex justify-end gap-4">
-        <a href="/">Hot</a>
+        <!-- <a href="/">Hot</a>
         <a href="/">Top</a>
         <a href="/">New</a>
-        <a href="/">Random</a>
+        <a href="/">Random</a> -->
       </div>
       <div>
-        <a href="/create" class="font-medium text-yellow-600">Create yours</a>
+        <a href="/create" class="text-xl font-medium text-green-500">Create</a>
       </div>
       <div class="flex gap-4">
-        <a href="/">FAQ</a>
-        <a href="/">About</a>
+        <!-- <a href="/">FAQ</a>
+        <a href="/">About</a> -->
       </div>
     </div>
   {/if}

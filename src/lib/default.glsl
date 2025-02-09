@@ -1,20 +1,12 @@
-// uniform float r;     // resolution
-// uniform vec2 m;      // mouse position
+// uniform float r;     // resolution, in pixels
+// uniform vec2 m;      // mouse position, in pixels
 // uniform float t;     // animation time in seconds
 // uniform float f;     // frame
 // uniform sampler2D b; // previous frame buffer
 
-float i, e, R, s;
-vec3 q, p, d = vec3(-FC.yx / r.y * .8 * (abs(cos(t * .3) * .3 + .1 + .8)), 1);
-for(q --;
-i ++ < 119.;
-i > 89. ? d /= - d : d) {
-e += i / 5e3;
-o += e * e / 25.;
-s = 1.;
-p = q += d * e * R * .16;
-p = vec3(log2(R = length(p)) - 2. - t * .3, - p.z / R, atan(p.x, p.y));
-for(e = -- p.y;
-s < 1e5;
-s += s) e += cos(dot(cos(p.zyy * s), cos(p.xyx * s))) / s;
-}
+o ++;
+vec4 h;
+vec2 u;
+for(float A, l, a, i = .6;
+i > .1;
+i -= .1) a -= sin(a -= sin(a = (t + i) * 4.)), u = (FC.xy * 2. - r) / r.y, l = max(length(u -= rotate2D(a /= 4.) * clamp(u * rotate2D(a), - i, + i)), .1), A = min((l - .1) * r.y * .2, 1.), o = mix(h = sin(i / .1 + a + vec4(1, 3, 5, 0)) * .2 + .7, o, A) * mix(h / h, h + .5 * A * u.y / l, .1 / l);

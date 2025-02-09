@@ -7,6 +7,7 @@ export const load: PageServerLoad = async () => {
       id: true,
       name: true,
       source: true,
+      createdAt: true,
       user: {
         select: {
           username: true,
@@ -19,6 +20,6 @@ export const load: PageServerLoad = async () => {
     },
   });
   return {
-    shaders,
+    shaders: shaders.map((s) => ({ ...s, createdAt: s.createdAt.toISOString() })),
   };
 };

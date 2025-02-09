@@ -121,7 +121,7 @@
       let mouse = [0, 0];
       canvas.addEventListener("mousemove", (event) => {
         const rect = canvas.getBoundingClientRect();
-        mouse = [event.clientX - rect.left, 1.0 - (event.clientY - rect.top)];
+        mouse = [event.clientX - rect.left, canvas.height - event.clientY + rect.top];
       });
 
       function render(time) {

@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { byteLengthString, minify } from "$lib/helpers";
-  import template from "$lib/srcdoc.html?raw";
+  import Player from "$lib/components/Player.svelte";
+  import { formatDate } from "$lib/helpers";
 
   const {
     shader,
@@ -9,6 +9,7 @@
       id: string;
       name: string;
       source: string;
+      createdAt: any;
       user: {
         name: string;
         image: string | null;
@@ -16,8 +17,6 @@
       };
     };
   } = $props();
-
-  const srcdoc = $derived(template.replace("/*** GLSL_SOURCE ***/", shader.source));
 
   let visible = $state(false);
 
@@ -40,15 +39,23 @@
   }
 </script>
 
-<div class="flex flex-col items-center gap-2">
-  <div class="h-[600px] w-[600px] bg-black" use:visibility>
+<div
+  class="mx-auto flex w-full max-w-[616px] flex-col items-center gap-2 rounded-xl bg-stone-500 p-4 shadow-lg"
+>
+  <div
+    class="aspect-square w-full max-w-[600px] overflow-hidden rounded-lg bg-black shadow-lg"
+    use:visibility
+  >
     {#if visible}
-      <iframe {srcdoc} title={shader.name} class="h-full w-full"></iframe>
+      <Player source={shader.source} />
     {/if}
   </div>
-  <a href={`/s/${shader.id}`}>
-    <h3 class="text-lg font-medium text-blue-500">
-      {shader.name} ~ {byteLengthString(shader.source)}
-    </h3>
-  </a>
+  <h3 class="text-xl font-medium text-stone-50">
+    {shader.name}
+  </h3>
+  <p class="text-sm text-stone-50">
+    {formatDate(shader.createdAt)}
+  </p>
+  <pre
+    class="shadow-inner-lg max-w-[600px] overflow-auto rounded-lg bg-stone-600 p-4 text-xs whitespace-pre-wrap text-stone-50">{shader.source}</pre>
 </div>

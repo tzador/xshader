@@ -7,5 +7,5 @@ uniform vec2 r;     // resolution
 
 void main() {
   gl_Position = a_position;
-  FC = a_position.xy * r.xy;
+  FC = (a_position.xy * 0.5f + 0.5f) * r.xy;
 }
