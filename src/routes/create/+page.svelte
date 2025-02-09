@@ -55,7 +55,7 @@
       type="text"
       bind:value={name}
       placeholder="Shader Name #add #some #hashtags"
-      class="w-full text-lg"
+      class="w-full p-4 text-lg"
     />
     <div class="ml-2 flex-1 overflow-hidden bg-stone-900">
       <AceEditor bind:source />

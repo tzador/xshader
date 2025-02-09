@@ -50,12 +50,12 @@
       <Player source={shader.source} />
     {/if}
   </div>
-  <h3 class="text-xl font-medium text-stone-50">
+  <h3 class="py-4 text-4xl font-medium text-stone-50">
     {shader.name}
   </h3>
   <p class="text-sm text-stone-50">
     {formatDate(shader.createdAt)}
   </p>
   <pre
-    class="shadow-inner-lg max-w-[600px] overflow-auto rounded-lg bg-stone-600 p-4 text-xs whitespace-pre-wrap text-stone-50">{shader.source}</pre>
+    class="shadow-inner-lg w-full max-w-[600px] overflow-auto rounded-lg bg-stone-600 p-4 text-xs whitespace-pre-wrap text-stone-50">{shader.source}</pre>
 </div>
