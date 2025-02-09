@@ -1,10 +1,10 @@
 #version 300 es
-precision highp float;
+precision mediump float;
 
 in vec2 FC;
 out vec4 fragColor;
 
-uniform float r;     // resolution
+uniform vec2 r;     // resolution
 uniform vec2 m;      // mouse position
 uniform float t;     // animation time in seconds
 uniform float f;     // frame
@@ -15,7 +15,7 @@ uniform sampler2D b; // previous frame buffer
 void main() {
   vec4 o = vec4(0.f, 0.f, 0.f, 1.f);
 
-/*** GLSL_SOURCE ***/
+  /*** GLSL_SOURCE ***/
 
   fragColor = o;
 }

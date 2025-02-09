@@ -1,10 +1,11 @@
 #version 300 es
-precision highp float;
+precision mediump float;
 
 in vec4 a_position;
 out vec2 FC;
+uniform vec2 r;     // resolution
 
 void main() {
   gl_Position = a_position;
-  FC = a_position.xy;
+  FC = a_position.xy * r.xy;
 }

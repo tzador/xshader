@@ -19,10 +19,10 @@
     <canvas id="webgl-canvas"></canvas>
     <script>
       const canvas = document.getElementById("webgl-canvas");
-      const gl = canvas.getContext("webgl", { preserveDrawingBuffer: true });
+      const gl = canvas.getContext("webgl2", { preserveDrawingBuffer: true });
 
       if (!gl) {
-        throw new Error("WebGL not supported.");
+        throw new Error("WebGL 2 not supported.");
       }
 
       function createFramebuffer(gl, width, height) {
@@ -105,7 +105,8 @@
         gl.STATIC_DRAW,
       );
 
-      const positionLocation = gl.getAttribLocation(program, "a_position");
+      const positionLocation = 0;
+      gl.bindAttribLocation(program, positionLocation, "a_position");
       gl.enableVertexAttribArray(positionLocation);
       gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
 
