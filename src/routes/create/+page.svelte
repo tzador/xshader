@@ -60,5 +60,15 @@
     <div class="ml-2 flex-1 overflow-hidden bg-stone-900">
       <AceEditor bind:source />
     </div>
+    <div class="flex gap-4 bg-stone-800 p-4">
+      <div class="flex-1"></div>
+      <a
+        href="https://github.com/tzador/xshader/blob/main/src/lib/prelude.glsl"
+        class="text-yellow-500"
+        target="_blank"
+      >
+        Help</a
+      >
+    </div>
   </div>
 </div>

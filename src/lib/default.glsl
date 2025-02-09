@@ -1,9 +1,3 @@
-// uniform float r;     // resolution, in pixels
-// uniform vec2 m;      // mouse position, in pixels
-// uniform float t;     // animation time in seconds
-// uniform float f;     // frame
-// uniform sampler2D b; // previous frame buffer
-
 o ++;
 vec4 h;
 vec2 u;

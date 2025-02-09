@@ -10,7 +10,7 @@ uniform float t;     // animation time in seconds
 uniform float f;     // frame
 uniform sampler2D b; // previous frame buffer
 
-/*** NOISE_SOURCE ***/
+/*** PRELUDE_SOURCE ***/
 
 void main() {
   vec4 o = vec4(0.f, 0.f, 0.f, 1.f);

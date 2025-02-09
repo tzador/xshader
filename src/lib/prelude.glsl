@@ -1,4 +1,17 @@
-// Kindly borrowed from https://github.com/doxas/twigl/blob/master/src/shader_snippet/noise.glsl
+//
+// The following are available in the shader:
+//
+
+// uniform float r;     // resolution, in pixels
+// uniform vec2 m;      // mouse position, in pixels
+// uniform float t;     // animation time in seconds
+// uniform float f;     // frame
+// uniform sampler2D b; // previous frame buffer
+// vec4 o;              // assign to it the fragment output color
+
+//
+// The code below is borrowed from https://github.com/doxas/twigl/blob/master/src/shader_snippet/noise.glsl
+//
 
 //
 // Description : Array and textureless GLSL 2D simplex noise function.
